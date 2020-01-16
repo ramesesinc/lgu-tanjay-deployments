@@ -4,4 +4,7 @@
 .osiris_pid
 .shutdown_pid
 Thumbs.db
-installers
+updates-dev.xml
+video.conf
+*.mp4
+/_custom

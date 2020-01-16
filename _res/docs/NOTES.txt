@@ -1,5 +1,4 @@
 [app-server]
-
 IP  : 192.168.0.4
 User: lgutanjay
 Pass: p@ssw0rd
@@ -13,9 +12,7 @@ Webmin-User: lgutanjay
 Webmin-Pass: p@ssw0rd
 
 
-
 [db-server]
-
 IP  : 192.168.0.4
 User: root
 Pass: p@ssw0rd
