@@ -33,7 +33,7 @@ services:
 
 
   gdx-client:
-    image: "ramesesinc/gdx-client:v001"
+    image: "ramesesinc/gdx-client:1.01.001"
     container_name: gdx-client
     restart: always
     logging: 
@@ -43,6 +43,7 @@ services:
         max-size: "10m"
     env_file:
       - ./env.conf
+      - ../_custom/env.conf
     ports:
       - "8571:8571"
     links:
