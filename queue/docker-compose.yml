@@ -1,25 +1,45 @@
 version: "3"
 
 services:
-  
+
+  queue-proxy:
+    image: nginx:latest
+    container_name: queue-proxy
+    restart: always
+    logging:
+      driver: "json-file"
+      options: 
+        max-file: "5"
+        max-size: 10m
+    links:
+      - queue-server
+    environment:
+      TZ: "Asia/Manila"
+    ports:
+      - "9980:80"
+    volumes:
+      - ./proxy/conf.d:/etc/nginx/conf.d
+      - ../_custom/queue:/resources
+
+
   queue-server:
-    image: ramesesinc/queue-server:20191010
+    image: ramesesinc/queue-server:255.02.001
     container_name: queue-server
     restart: always
-
     logging: 
       driver: "json-file"
       options:
         max-file: "5"
         max-size: "10m"
-
     env_file:
       - ./env.conf
-
+      - ../_custom/env.conf
     ports:
       - "9999:8080"
       - "9970:8070"
-
+      - "9960:8060"
     volumes:
-      - ./res/ws_queue_listener:/apps/server/workspace/services/apps/queue/connections/ws_queue_listener
-      - ./res/project.conf:/apps/server/workspace/web/monitor.queue/project.conf
+      - ../_custom/queue/files/queue.pg:/apps/server/web/monitor.queue/files/queue.pg
+      - ../_custom/queue/files/queueing.pg:/apps/server/web/monitor.queue/files/queueing.pg
+      - ../_custom/queue/files/queuenumber.pg:/apps/server/web/monitor.queue/files/queuenumber.pg
+      - ../_custom/queue/lgu-logo.png:/apps/server/web/monitor.queue/res/images/lgu-logo.png

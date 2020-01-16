@@ -14,10 +14,11 @@ services:
 
     env_file:
       - ./env.conf
+      - ../_custom/env.conf
 
     ports:
       - "8073:8070"
 
     volumes:
+      - ../_res/connections:/apps/server/services/apps/enterprise/connections
       - ./mainds:/apps/server/services/datasources/mainds
-      - ./connections:/apps/server/services/apps/enterprise/connections

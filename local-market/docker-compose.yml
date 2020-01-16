@@ -15,11 +15,12 @@ services:
 
     env_file:
       - ./env.conf
+      - ../_custom/env.conf
 
     ports:
       - "8074:8070"
 
     volumes:
+      - ../_res/connections:/apps/server/services/apps/enterprise/connections
       - ./marketds:/apps/server/services/datasources/mainds
-      - ./connections:/apps/server/services/apps/enterprise/connections
       - ./modules/rameses-gov-etracs-market-services.jar:/apps/server/services/apps/enterprise/modules/rameses-gov-etracs-market-services.jar
