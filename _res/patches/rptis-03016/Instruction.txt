@@ -1,0 +1,51 @@
+PATCH 255-012
+========================================================================
+
+LANDTAX:
+	- Async posting of barangay shares
+
+========================================================================
+
+	IMPORTANT !!!!!
+
+	Deploy only AFTER LIQUIDATION by liquidating officer.
+
+========================================================================
+
+1. Shutdown ETRACS Server.
+
+2. Backup ETRACS Server folder and Database.
+
+3. Copy "workspace" folder to SERVER_DIR. 
+   Ovewrite existing files.
+
+4. Edit updates.xml and increment version of the ff:
+
+	- rameses-gov-etracs-rptis-landtax-report.jar
+
+5. Open SQLYog or Navicat and execute the following script:
+
+	- v255.03017 script - mysql.sql
+
+6. Restart ETRACS Server
+
+7. Undeploy Barangay Share rules
+
+	7.1. Login Admin account
+	7.2. Open Main Menu - Rule Management - Landtax - RPT Billing Rules
+	7.3. Select Barangay Share rule group
+	7.4. Undeploy ALL barangay sharing rules
+
+8. Rebuild Barangay Shares
+
+	8.1. Open SQLYog or Navicat
+	8.2. Execute script "v255.03017 script - Clear Shares.sql"
+
+9. 	Wait until the posting is completed 
+
+	NOTE: Execute the script below to check the posting progress.
+	      A zero count indicates the posting is completed.
+
+			select count(*) from cashreceipt_rpt_share_forposting 
+
+10. Shutdown and relogin ETRACS client and verify sharing reports.		
