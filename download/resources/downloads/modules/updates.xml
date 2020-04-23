@@ -27,6 +27,7 @@ obo.app.context=enterprise
 </env>
 <modules> 
 	<!-- custom -->
+	<module file="custom/gov-lgu-tanjay-depositslip.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-bpls-closure.jar" version="1.01"/>
 	<module file="custom/gov-lgu-tanjay-bpls-appermit.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-bpls-report.jar" version="1.04"/>
