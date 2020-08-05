@@ -35,6 +35,7 @@ obo.app.context=enterprise
 	<module file="custom/gov-lgu-tanjay-treasury-abstract-report.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-treasury-report.jar" version="1.02"/>
 	<module file="custom/gov-lgu-tanjay-landtax-delinquency.jar" version="1.00"/>
+	<module file="custom/gov-lgu-tanjay-landtax-collection.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-landtax-af56.jar" version="1.2"/>
 	<module file="custom/gov-lgu-tanjay-rptis-faas-report.jar" version="1.2"/>
 	<module file="custom/gov-lgu-tanjay-lgu-treasury.jar" version="1.2"/>
