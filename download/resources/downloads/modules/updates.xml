@@ -102,7 +102,7 @@ obo.app.context=enterprise
 
 	<!-- bpls -->
 	<module file="bpls/rameses-gov-etracs-bpls.jar" version="2.50"/>
-	<module file="bpls/rameses-gov-etracs-bpls-reports.jar" version="2.51"/>
+	<module file="bpls/rameses-gov-etracs-bpls-reports.jar" version="2.52"/>
 	<module file="bpls/rameses-gov-etracs-bpls-ceo.jar" version="2.50"/>
 
 	<!-- rptis -->
