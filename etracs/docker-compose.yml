@@ -40,6 +40,7 @@ services:
     volumes:
       - ../_res/connections:/apps/etracs25/connections/ext
       - ./modules:/apps/etracs25/modules
+
       - ./dev_modules/rameses-gov-etracs-rptis-city-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-city-services.jar
       - ./dev_modules/rameses-gov-etracs-rptis-coordinator-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-coordinator-services.jar
       - ./dev_modules/rameses-gov-etracs-rptis-landtax-online-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-online-services.jar
@@ -49,3 +50,6 @@ services:
       - ./dev_modules/rameses-gov-etracs-rptis-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-services.jar
       - ./dev_modules/rameses-gov-etracs-rptis-report-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-report-services.jar
       - ./dev_modules/rameses-gov-etracs-rptis-sms-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-sms-services.jar
+
+      - ./dev_modules/bpls:/bpls
+      - ./dev_modules/bpls/etracs_bpls.conf:/apps/etracs25/modules.conf.d/etracs_bpls.conf
