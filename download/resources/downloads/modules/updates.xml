@@ -1,28 +1,28 @@
 <app>
 <env>
 app.title=ETRACS 2.5 build 05 20200806_001 (CITY OF TANJAY)
-app.host=192.168.254.225:8070
+app.host=192.168.0.4:8070
 app.cluster=osiris3
 app.context=etracs25
-app.help=http://192.168.254.225:8080/help
+app.help=http://192.168.0.4:8080/help
 app.loader=com.rameses.osiris2.client.OsirisAppLoader
 readTimeout=300000
 connectionTimeout=5000
 filemgmt.enabled=false
 
-ws.host=192.168.254.225:8060
-#res.host=192.168.254.225
+ws.host=192.168.0.4:8060
+#res.host=192.168.0.4
 
-socketio.host=192.168.254.225:7080
+socketio.host=192.168.0.4:7080
 
 #entity-service
-entity.app.host=192.168.254.225:8070
+entity.app.host=192.168.0.4:8070
 entity.app.context=etracs25
 
-market.app.host=192.168.254.225:8074
+market.app.host=192.168.0.4:8074
 market.app.context=enterprise
 
-obo.app.host=192.168.254.225:8073
+obo.app.host=192.168.0.4:8073
 obo.app.context=enterprise
 </env>
 <modules> 
