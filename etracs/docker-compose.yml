@@ -21,7 +21,7 @@ services:
 
 
   etracs25-server:
-    image: ramesesinc/etracs25-server-city:255.02.003
+    image: ramesesinc/etracs25-server-city:255.02.007
     container_name: etracs25-server
     restart: always
     logging:
@@ -41,15 +41,14 @@ services:
       - ../_res/connections:/apps/etracs25/connections/ext
       - ./modules:/apps/etracs25/modules
 
-      - ./dev_modules/rameses-gov-etracs-rptis-city-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-city-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-coordinator-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-coordinator-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-landtax-online-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-online-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-landtax-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-landtax-report-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-landtax-report-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-online-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-online-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-report-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-report-services.jar
-      - ./dev_modules/rameses-gov-etracs-rptis-sms-services.jar:/services/modules/etracs/rameses-gov-etracs-rptis-sms-services.jar
+      - ./dev_modules/gov:/gov
+      - ./dev_modules/gov/etracs__gov.conf:/apps/etracs25/modules.conf.d/etracs__gov.conf
+
+      - ./dev_modules/rptis:/rptis
+      - ./dev_modules/rptis/etracs_rptis.conf:/apps/etracs25/modules.conf.d/etracs_rptis.conf
 
       - ./dev_modules/bpls:/bpls
       - ./dev_modules/bpls/etracs_bpls.conf:/apps/etracs25/modules.conf.d/etracs_bpls.conf
+
+      - ./dev_modules/rameses-enterprise-admin-services.jar:/services/modules/01-rameses-enterprise-admin-services.jar
+      - ./dev_modules/rameses-enterprise-financial-services.jar:/services/modules/rameses-enterprise-financial-services.jar
