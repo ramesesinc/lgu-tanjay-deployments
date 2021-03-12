@@ -3,7 +3,7 @@ version: "3"
 services:
   
   rameses-notification-server:
-    image: "ramesesinc/notification-server:1.0"
+    image: ramesesinc/notification-server:1.0
     container_name: rameses-notification-server
     restart: always
     logging:
