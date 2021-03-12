@@ -1,6 +1,6 @@
 <app>
 <env>
-app.title=ETRACS 2.5 build 05 20200131_1705 (CITY OF TANJAY)
+app.title=ETRACS 2.5 build 05 20200817_001 (CITY OF TANJAY)
 app.host=192.168.0.4:8070
 app.cluster=osiris3
 app.context=etracs25
@@ -28,13 +28,14 @@ obo.app.context=enterprise
 <modules> 
 	<!-- custom -->
 	<module file="custom/gov-lgu-tanjay-depositslip.jar" version="1.00"/>
-	<module file="custom/gov-lgu-tanjay-bpls-closure.jar" version="1.01"/>
+	<module file="custom/gov-lgu-tanjay-bpls-closure.jar" version="1.02"/>
 	<module file="custom/gov-lgu-tanjay-bpls-appermit.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-bpls-report.jar" version="1.04"/>
 	<module file="custom/gov-lgu-tanjay-bpls-permit.jar" version="1.04"/>
 	<module file="custom/gov-lgu-tanjay-treasury-abstract-report.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-treasury-report.jar" version="1.02"/>
 	<module file="custom/gov-lgu-tanjay-landtax-delinquency.jar" version="1.00"/>
+	<module file="custom/gov-lgu-tanjay-landtax-collection.jar" version="1.00"/>
 	<module file="custom/gov-lgu-tanjay-landtax-af56.jar" version="1.2"/>
 	<module file="custom/gov-lgu-tanjay-rptis-faas-report.jar" version="1.2"/>
 	<module file="custom/gov-lgu-tanjay-lgu-treasury.jar" version="1.2"/>
@@ -58,7 +59,7 @@ obo.app.context=enterprise
 	<module file="core/osiris2-report.jar" version="2.50"/>
 	<module file="core/rameses-client-ui.jar" version="2.51"/>
 	<module file="core/rameses-client-ui-bio.jar" version="2.50"/>
-	<module file="core/rameses-client-ui-jfx.jar" version="2.50"/>
+	<module file="core/rameses-client-ui-jfx.jar" version="2.51"/>
 	<module file="core/rameses-client-notification-socketio.jar" version="2.50"/>
 	<module file="core/rameses-common2.jar" version="2.50"/>
 	<module file="core/rameses-custom-impl.jar" version="2.50"/>
@@ -67,42 +68,44 @@ obo.app.context=enterprise
  
 	<!-- shared -->
 	<module file="shared/client-system.jar" version="2.50"/>
-	<module file="shared/client-ui-extended.jar" version="2.50"/>
-	<module file="shared/rameses-client-menu.jar" version="2.50"/>
+	<module file="shared/client-ui-extended.jar" version="2.51"/>
+	<module file="shared/rameses-client-menu.jar" version="2.51"/>
 	<module file="shared/rameses-client-report.jar" version="2.50"/>
 	<module file="shared/rameses-rules-mgmt.jar" version="2.50"/>
 	<module file="shared/rameses-workflow-mgmt.jar" version="2.51"/>
 	<module file="shared/rameses-enterprise.jar" version="2.50"/>
-	<module file="shared/rameses-enterprise-admin.jar" version="2.50"/>
-	<module file="shared/rameses-enterprise-entity.jar" version="2.51"/>
-	<module file="shared/rameses-enterprise-entity-tool.jar" version="2.50"/>
-	<module file="shared/rameses-enterprise-financial.jar" version="2.50"/>
+	<module file="shared/rameses-enterprise-admin.jar" version="2.51"/>
+	<module file="shared/rameses-enterprise-financial.jar" version="2.51"/>
 	<module file="shared/rameses-client-notification2.jar" version="2.50"/>	
  
+ 	<!-- entity -->
+	<module file="entity/rameses-enterprise-entity.jar" version="2.50"/>
+	<module file="entity/rameses-enterprise-entity-tool.jar" version="2.50"/>
+	<module file="entity/rameses-gov-etracs-entity.jar" version="2.50"/>
+
 	<!-- etracs -->
 	<module file="etracs/rameses-etracs-main.jar" version="2.50"/>
-	<module file="etracs/rameses-gov-etracs-entity.jar" version="2.51"/>
 	<module file="etracs/rameses-gov-etracs-ngas-report.jar" version="2.50"/>
 	<module file="etracs/rameses-gov-etracs-sre-report.jar" version="2.50"/>
 	<module file="etracs/rameses-gov-etracs-tools.jar" version="2.50"/>	
 	<module file="etracs/rameses-gov-etracs-signatory-template.jar" version="2.50"/>
-	<module file="etracs/rameses-gov-lgu.jar" version="2.50"/>
-	<module file="etracs/rameses-gov-lgu-treasury.jar" version="2.50"/>
+	<module file="etracs/rameses-gov-lgu.jar" version="2.51"/>
+	<module file="etracs/rameses-gov-lgu-treasury.jar" version="2.51"/>
 
 	<!-- treasury -->
 	<module file="treasury/rameses-treasury-common.jar" version="2.51"/>
 	<module file="treasury/rameses-gov-depositslip.jar" version="2.50"/>
 	<module file="treasury/rameses-gov-treasury.jar" version="2.51"/>
 	<module file="treasury/rameses-gov-treasury-report.jar" version="2.51"/>
-	<module file="treasury/rameses-gov-treasury-tool.jar" version="2.50"/>
+	<module file="treasury/rameses-gov-treasury-tool.jar" version="2.51"/>
 
 	<!-- epayment -->
-	<module file="epayment/rameses-gov-epayment.jar" version="2.50"/>
-	<module file="epayment/rameses-gov-epayment-report.jar" version="2.50"/>
+	<module file="epayment/rameses-gov-epayment.jar" version="2.51"/>
+	<module file="epayment/rameses-gov-epayment-report.jar" version="2.51"/>
 
 	<!-- bpls -->
-	<module file="bpls/rameses-gov-etracs-bpls.jar" version="2.50"/>
-	<module file="bpls/rameses-gov-etracs-bpls-reports.jar" version="2.52"/>
+	<module file="bpls/rameses-gov-etracs-bpls.jar" version="2.51"/>
+	<module file="bpls/rameses-gov-etracs-bpls-reports.jar" version="2.51"/>
 	<module file="bpls/rameses-gov-etracs-bpls-ceo.jar" version="2.50"/>
 
 	<!-- rptis -->
