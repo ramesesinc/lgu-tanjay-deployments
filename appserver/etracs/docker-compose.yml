@@ -2,28 +2,9 @@ version: "3"
 
 services:
 
-  download-server:
-    image: nginx:latest
-    container_name: download-server
-    restart: always
-    logging:
-      driver: "json-file"
-      options: 
-        max-file: "5"
-        max-size: 10m
-    environment:
-      TZ: "Asia/Manila"
-    ports:
-      - "8000:80"
-    volumes:
-      - ../download/conf.d:/etc/nginx/conf.d
-      - ../download/resources:/resources
-      - ../local-obo/module-client:/resources/downloads/modules/obo
-
-
-  etracs25-server:
+  etracs-server:
     image: ramesesinc/etracs25-server-city:255.02.007
-    container_name: etracs25-server
+    container_name: etracs-server
     restart: always
     logging:
       driver: "json-file"
