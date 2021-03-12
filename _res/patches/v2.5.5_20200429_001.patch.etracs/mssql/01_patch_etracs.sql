@@ -8,7 +8,7 @@ from af_control_detail aa, (
 			and d.qtyreceived = 0 
 	)bb 
 where aa.objid = bb.objid 
-go  
+; 
 
 update af_control_detail set receivedstartseries = null where receivedstartseries = 0 ; 
 update af_control_detail set receivedendseries = null where receivedendseries  = 0 ; 
@@ -30,7 +30,7 @@ from af_control_detail aa, (
 			and d.remarks = 'SALE' 
 	)bb 
 where aa.objid = bb.objid 
-go 
+;
 
 update aa set 
 	aa.beginstartseries = bb.receivedstartseries, aa.beginendseries = bb.receivedendseries, aa.qtybegin = bb.qtyreceived, 
@@ -60,4 +60,5 @@ from af_control_detail aa, (
 		where pd.refdate <> rd.refdate 
 	)bb 
 where aa.objid = bb.objid 
-go 
+;
+
