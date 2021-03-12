@@ -1,5 +1,0 @@
-dialect=mysql
-driverClass=com.mysql.jdbc.Driver
-url=jdbc:mysql://${obodb_host}/${obodb_name}
-user=${obodb_user}
-pwd=${obodb_pass}

@@ -15,7 +15,9 @@ ws.host=192.168.0.4:8060
 
 socketio.host=192.168.0.4:7080
 
-#entity-service
+mail.smtp.host=192.168.0.4
+mail.from=lgutanjay@gmail.com
+
 entity.app.host=192.168.0.4:8070
 entity.app.context=etracs25
 
@@ -74,9 +76,12 @@ obo.app.context=enterprise
 	<module file="shared/rameses-rules-mgmt.jar" version="2.50"/>
 	<module file="shared/rameses-workflow-mgmt.jar" version="2.51"/>
 	<module file="shared/rameses-enterprise.jar" version="2.50"/>
-	<module file="shared/rameses-enterprise-admin.jar" version="2.51"/>
+	<module file="shared/rameses-enterprise-admin.jar" version="2.52"/>
+	<module file="shared/rameses-enterprise-admin-plugin.jar" version="2.51"/>
 	<module file="shared/rameses-enterprise-financial.jar" version="2.51"/>
 	<module file="shared/rameses-client-notification2.jar" version="2.50"/>	
+	<module file="shared/rameses-email-client.jar" version="2.50"/> 
+	<module file="shared/rameses-jasper-client.jar" version="2.50"/> 
  
  	<!-- entity -->
 	<module file="entity/rameses-enterprise-entity.jar" version="2.50"/>
@@ -93,15 +98,11 @@ obo.app.context=enterprise
 	<module file="etracs/rameses-gov-lgu-treasury.jar" version="2.51"/>
 
 	<!-- treasury -->
-	<module file="treasury/rameses-treasury-common.jar" version="2.51"/>
+	<module file="treasury/rameses-treasury-common.jar" version="2.52"/>
 	<module file="treasury/rameses-gov-depositslip.jar" version="2.50"/>
 	<module file="treasury/rameses-gov-treasury.jar" version="2.51"/>
 	<module file="treasury/rameses-gov-treasury-report.jar" version="2.51"/>
 	<module file="treasury/rameses-gov-treasury-tool.jar" version="2.51"/>
-
-	<!-- epayment -->
-	<module file="epayment/rameses-gov-epayment.jar" version="2.51"/>
-	<module file="epayment/rameses-gov-epayment-report.jar" version="2.51"/>
 
 	<!-- bpls -->
 	<module file="bpls/rameses-gov-etracs-bpls.jar" version="2.51"/>
@@ -129,6 +130,14 @@ obo.app.context=enterprise
 	<module file="market/rameses-gov-etracs-market.jar" version="1.50"/> 
 
 	<!-- obo -->
-	<module file="obo/rameses-gov-etracs-obo.jar" version="1.00"/>
+	<module version="2.56" file="obo/rameses-gov-etracs-obo.jar" />
+	<module version="2.55" file="obo/rameses-gov-etracs-obo-shared.jar" />
+	<module version="2.56" file="obo/rameses-gov-etracs-obo-building.jar" />
+	<module version="2.55" file="obo/rameses-gov-etracs-obo-occupancy.jar" />
+	<module version="2.55" file="obo/rameses-gov-etracs-obo-collection.jar" />
+	<module version="2.55" file="obo/rameses-gov-etracs-rptis-obo.jar" />
+	<module version="2.55" file="obo/reports/bfp-standard-forms.jar" />
+	<module version="2.55" file="obo/reports/obo-standard-forms.jar" />
+	<module version="2.55" file="obo/reports/zoning-standard-forms.jar" />
 </modules>
 </app>
