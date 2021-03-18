@@ -176,6 +176,9 @@ class BusinessPermitService  {
 			perm = em.findPermitForReport( o ); 
 		}
 		
+
+                println '\n*** perm 2'
+                perm.each{ println '> '+ it; }
 		def lobs = em.getApplicationLOBs( o ); 
 		if ( splitPrinting ) { 
 			lobs = lobSvc.getAppLobs( o ); 
@@ -202,6 +205,7 @@ class BusinessPermitService  {
 		} 
 
 		addr = perm.owner?.address; 
+		println 'owner address -> '+ perm.owner?.address;
 		if ( addr?.objid ) {
 			addr = entity_address.read([ objid: addr.objid ]);
 		} else {
