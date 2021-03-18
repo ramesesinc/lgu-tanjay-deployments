@@ -29,3 +29,6 @@ services:
 
       - ../../_custom/output:/apps/server/output
       - ../../_custom/fileserver:/fileserver
+
+      - ./module-client/reports:/apps/server/templates
+      - ../../_custom/module-client/etracs:/apps/server/templates/custom
