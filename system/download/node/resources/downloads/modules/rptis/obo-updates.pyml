@@ -1,8 +1,10 @@
 app:
 
    env:
+      "rpt.app.host" : "${app_server_ip}:8070"
+      "rpt.app.context" : "etracs25"
 
    modules:
-      - { order: 241, version: 2.51, file: "modules/rptis/rameses-gov-etracs-rptis-landtax-report.jar" }
-      - { order: 243, version: 2.50, file: "modules/rptis/rameses-gov-etracs-rptis-report.jar" }
-      - { order: 243, version: 2.50, file: "modules/rptis/rameses-gov-etracs-rptis.jar" }
+      - { order: 241, version: 2.52, file: "modules/rptis/rameses-gov-etracs-rptis-landtax-report.jar" }
+      - { order: 243, version: 2.51, file: "modules/rptis/rameses-gov-etracs-rptis-report.jar" }
+      - { order: 243, version: 2.51, file: "modules/rptis/rameses-gov-etracs-rptis.jar" }
