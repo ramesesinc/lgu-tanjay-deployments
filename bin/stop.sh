@@ -24,4 +24,6 @@ cd $BASE_DIR/system/queue && docker-compose down
 
 cd $BASE_DIR/email/mail-primary && docker-compose down
 
+cd $BASE_DIR/email/mail-obo && docker-compose down
+
 cd $RUN_DIR
