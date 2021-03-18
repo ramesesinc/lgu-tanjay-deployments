@@ -1,5 +1,0 @@
-provider=script
-app.host=${app_server_ip}:8074
-app.context=enterprise
-app.cluster=osiris3
-readTimeout=60000
