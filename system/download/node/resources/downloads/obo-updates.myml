@@ -15,8 +15,9 @@ app:
 
       "socketio.host" : "${app_server_ip}:7080"
 
-      "mail.smtp.host" : "${mail_smtp_host}"
       "mail.from" : "${mail_smtp_from}"
+      "mail.smtp.host" : "${mail_smtp_host}"
+      "mail.smtp.port" : "2526"
 
    modules:
       # 3rd party libs
