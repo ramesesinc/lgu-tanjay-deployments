@@ -32,3 +32,7 @@ services:
 
       - ./module-client/reports:/apps/server/templates
       - ../../_custom/module-client/etracs:/apps/server/templates/custom
+
+      - ./dev-modules/rptis/rameses-gov-etracs-rptis-services.jar:/services/modules/rptis/rameses-gov-etracs-rptis-services.jar
+
+      
