@@ -2,89 +2,80 @@ import com.rameses.annotations.*;
 import com.rameses.util.*;
 import com.rameses.http.*;
 import com.rameses.osiris3.server.*;
-
+import java.rmi.server.*;
 
 class OccupancyInspectionScheduleService {
 	
-	@XConnection("cloud-server")
-	def cloudServer;
-
-	@XConnection("calendar-server")
-	def calendar;
-
 	@Service("DateService")
 	def dateSvc;
 
-	@DataContext("vw_occupancy_permit")
+	@DataContext("vw_occupancy_certificate")
 	def vwAppEm;
-
-	@DataContext("occupancy_permit")
-	def appEm;
 
 	@Service("Var")
 	def var;
 
-	@Service
-	def self;
+	@Service(dynamic=true)
+	def svc;
 
-	@ProxyMethod
-	public def updateSchedule( def o ) {
-		appEm.find( [objid: o.objid ]).update( [inspectiondate: o.date ] );
-		
-		//test sample here
-		//self.sendToCalendar( [appid: o.objid] );
-    }    
+	@DataContext("sys_email_queue")
+	def emailQueue;
+
+    @DataContext("sys_email_template")
+    def templateEm;
 
     @ProxyMethod
-    public void sendToCalendar( def o ) {
-    	def useCalendar = var.use_calendar;
-    	if( useCalendar==null || useCalendar !="true" ) return;
+    public void transmitSchedule( def o ) {
+    	if(!o.appid) throw new Exception("appid is required in OccupancyInspectionScheduleService.addSchedule" );
 
-    	def conf = calendar.conf;
+    	def app = vwAppEm.find( [objid: o.appid ] ).first();
+    	if(!app) throw new Exception("Occupancy certificate not found");
 
-		def app = vwAppEm.find( [objid: o.appid]).first();
+    	if(!app.inspectiondate ) throw new Exception("Please specify inspection date");
 
-		def emails = var.obo_inspection_calendar_group.split(",");
-		if(!emails) throw new Exception("Please include email addresses at obo_inspection_calendar_group") 
+    	if(!o.sendmail && !o.use_google_calendar ) return;
 
-		def buff  = [];
-		buff << "Bldg Permit No: " + app.bldgpermit.permitno;		
-		buff << "Project Title: " + app.bldgpermit.title;
-		buff << "Occupancy Class: " + app.bldgpermit.occupancytype.division.objid;
-		//buff << "Project Cost: " + app.bldgpermit.projectcost;
-		//buff << "Total Floor Area: " + app.bldgpermit.totalfloorarea;
+    	def emails = var.obo_inspection_calendar_group.replace("\n","").split(";").toList();
+    	if(!emails) throw new Exception("Please specify at least one email in obo_inspection_calendar_group");
+    	emails << app.contact.email;
+    	emails = emails.findAll{!!it}.unique();
 
-		def v = [:];
-		v.summary = "Building Inspection Schedule for Occupancy Permit ["+ app.appno + "]";
-		v.description = buff.join("<br>");
-		if( app.bldgpermit.location?.text ) {
-			v.location = app.bldgpermit.location.text;
-		}
-		v.start = [
-			dateTime: app.inspectiondate,
-			timeZone: "Asia/Manila"
-		];
-		v.end = [
-			dateTime: dateSvc.add( app.inspectiondate, "5h" ),
-			timeZone: "Asia/Manila"
-		];
-		v.recurrence = ["RRULE:FREQ=DAILY;COUNT=1"];
-		v.attendees = emails.collect{ [email: it ] };
-		v.reminders = [
-			useDefault: false,
-			overrides: [
-				[method: "email", minutes: 1440],
-				[method: "popup", minutes: 10],				
-			]
-		];
+        def tmp = templateEm.find( [objid: "obo_app_inspection_schedule" ]).first();
+        if(!tmp) throw new Exception("Please specify obo_app_inspection_schedule in email template");
 
-		def httpClient = new HttpClient(conf.host);
-		httpClient.contentType = "application/json";
-		//httpClient.debug = true;
-		def json = new JSON();
-		def data = json.encode( v );
+        def templateEngine = new groovy.text.SimpleTemplateEngine(); 
+        def subject = templateEngine.createTemplate(tmp.subject).make(app)?.toString(); 
+        def msg = templateEngine.createTemplate(tmp.message).make(app)?.toString(); 
 
-		httpClient.post("calendar/event/insert", data );
+    	if( o.use_google_calendar == true ) {
+    		def calSvc = svc.lookup("GoogleCalendarService");
+    		def p = [:];
+    		p.subject = subject;
+    		p.startdate = app.inspectiondate;
+    		p.enddate = dateSvc.add( app.inspectiondate, "5h" );
+    		p.emails = emails;
+	        p.msg = msg;
+	        calSvc.send( p );
+    	}
+
+    	if( o.sendmail == true ) {
+    		def q = [:];
+    		emails.each { m->
+    			q.objid = "EM" + new UID();
+	    		q.to = m;
+	    		q.refid = app.objid;
+	    		q.state = 0;
+	    		q.dtsent = dateSvc.getServerDate();
+	    		q.subject = subject;
+	    		q.connection = "obo-email-server";
+	    		q.title = subject; 
+	    		q.message = msg;
+	    		emailQueue.create(  q );
+    		}
+    	}
+
     }
+
+   
 	
 }

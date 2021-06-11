@@ -2,13 +2,16 @@ import com.rameses.annotations.*;
 
 class OboAssessmentReportInterceptor {
 	
-	@DataContext(dynamic=true)
-	def dynEm;
-
 	@Service("DateService")
 	def dateSvc;
 
-	@After(pattern="FormReportService.getData", eval="#{ args[0].reportid.matches('.*_assessment') }")
+	@DataContext("obo_app_fee")
+	def feeEm;
+
+	@DataContext("vw_obo_app")
+	def vwAppEm;
+
+	@After(pattern="FormReportService.getData", eval="#{ args[0].reportid == 'obo_assessment' }")
 	public void getOboAssessmentReport( def evt ) {
 		def p = evt.args[0];
 		def result = evt.result;
@@ -16,44 +19,47 @@ class OboAssessmentReportInterceptor {
 		def objid = p.parameters.objid;
 		if(!objid) throw new Exception("objid is required in assessment report")
 
-		def appEm, feeEm, permitType;
-		if( reportid.startsWith("building")) {
-			appEm = dynEm.lookup("vw_building_permit");
-			feeEm = dynEm.lookup("building_permit_fee");
-			permitType = "BUILDING PERMIT";
-		}
-		else {
-			appEm = dynEm.lookup("vw_occupancy_permit");
-			feeEm = dynEm.lookup("occupancy_permit_fee");
-			permitType = "OCCUPANCY PERMIT";			
+		def data = vwAppEm.find( [objid: objid ]).first();
+		if(!data) throw new Exception("App not found");
+
+		data.permittype =  data.doctitle ;
+
+		def fitems = feeEm.find([appid: objid]).list();
+		def unmappedList = fitems.findAll{ !it.item?.objid };
+		if(unmappedList) {
+			throw new Exception("Please map the ff. items first /n" + unmappedList*.title.join("/n") );
 		}
 
-		def data = appEm.find( [objid: objid ]).first();
-		data.permittype =  permitType ;
-		data.items = feeEm.getCategorizedFees( [appid: objid ] );
+		//group by fee group
+		def vitems = [];
+		fitems.groupBy{ it.item.item }.each {k,v->
+			def feegroup = v.find{ it.item.feegroupid!=null }.item.feegroup;
+			def m = [ 
+				item: k, 
+				section: feegroup?.title,
+				grouporder: feegroup?.sortindex,
+				sortorder: v.max{ it.item.sortorder }.item.sortorder, 
+				amount: v.sum{it.amount} 
+			];
+			vitems << m;
+		};
+
+		data.items = vitems.sort{ ( (it.grouporder==null?0:it.grouporder) * 1000 )+ (it.sortorder==null? 0: it.sortorder) };
+
 		data.dtfiled = dateSvc.getServerDate();
 		result.data = data;
 	}	
 
-
-	@Before(pattern="JasperEmailQueueService.send", eval="#{ args[0].reportid.matches('.*_assessment') }")
+	@Before(pattern="JasperEmailQueueService.send", eval="#{ args[0].reportid == 'obo_assessment' }")
 	public void beforeSendEmail( def evt ) {
 		def p = evt.args[0];
 		def reportid = p.reportid;
-		def appEm;
-		if( reportid.startsWith("building")) {
-			appEm = dynEm.lookup("vw_building_permit");
-		}
-		else {
-			appEm = dynEm.lookup("vw_occupancy_permit");
-		}
-		def ea = appEm.find( [objid: p.refid ] ).first();
+		def ea = vwAppEm.find( [objid: p.refid ] ).first();
 		if ( !p.to ) p.to = ea.contact.email;
-		
 		p.info = ea;
 	}
 
-	@Before(pattern="JasperReportEmailService.send", eval="#{ args[0].reportid.matches('.*_assessment') }", index=-10000)
+	@Before(pattern="JasperReportEmailService.send", eval="#{ args[0].reportid == 'obo_assessment' }", index=-10000)
     public void emailAssessment(def evt) {
         def o = evt.args[0];
         def refid = o.refid;
