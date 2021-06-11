@@ -17,7 +17,6 @@ class FAASListInterceptor
 			em.insertFaasList(faas)
 		}
 		catch(Exception ex){
-			ex.printStackTrace()
 			em.updateFaasList(faas)
 		}
 	}
